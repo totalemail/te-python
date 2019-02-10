@@ -20,9 +20,14 @@ def make_request(function, url, data=None, headers={}, return_json=True):
     if not response.ok:
         message = 'ERROR: Got {} response from {}: {}'.format(response.status_code, url, response.text)
         print(message)
-        return None
+        return {
+            'status': 'failure',
+            'message': message
+        }
     else:
         if return_json:
-            return json.loads(response.text)
+            results = json.loads(response.text)
+            results['status'] = 'success'
+            return results
         else:
             return response.text
