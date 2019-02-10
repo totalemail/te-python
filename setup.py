@@ -27,11 +27,11 @@ setup(
     author_email='floyd.hightower27@gmail.com',
     url='https://gitlab.com/totalemail/te-python',
     packages=find_packages(exclude=('tests', 'docs')),
-    entry_points={
-        'console_scripts': [
-            'te_python=te_python.cli:main'
-        ]
-    },
+    # entry_points={
+    #     'console_scripts': [
+    #         'te_python=te_python.cli:main'
+    #     ]
+    # },
     include_package_data=True,
     install_requires=requirements,
     license=license,
