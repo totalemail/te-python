@@ -1,6 +1,6 @@
 # TotalEmail Python SDK ~ te_python
 
-![Pipeline status](https://gitlab.com/totalemail/te_python/badges/master/build.svg)
+![Pipeline status](https://gitlab.com/totalemail/te-python/badges/master/build.svg)
 
 Python SDK for TotalEmail.
 
