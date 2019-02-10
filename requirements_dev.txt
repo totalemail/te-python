@@ -1,0 +1,4 @@
+bumpversion==0.5.3
+pytest
+pytest-cov==2.4.0
+codecov==2.0.5
