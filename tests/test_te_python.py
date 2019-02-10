@@ -2,15 +2,9 @@
 # -*- coding: utf-8 -*-
 """Tests for `te_python` module."""
 
-import pytest
-
 from te_python import te_python
 
 
-@pytest.fixture
-def response():
-    return "foo bar"
-
-
 def test_te_python_initialization():
-    assert 1 == 1
+    response = te_python.email_get_details('a53b7747d6bd3f59076d63469d92924e00f407ff472e5a539936453185ecca6c')
+    assert isinstance(response, dict)

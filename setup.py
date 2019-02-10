@@ -11,6 +11,7 @@ with open('LICENSE') as license_file:
 
 requirements = [
     'click',
+    'requests'
     # TODO: put package requirements here
 ]
 
