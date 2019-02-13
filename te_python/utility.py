@@ -22,10 +22,7 @@ def make_request(function, url, data=None, headers={}, return_json=True):
     if not response.ok:
         message = 'ERROR: Got {} response from {}: {}'.format(response.status_code, url, response.text)
         print(message)
-        return {
-            'status': 'failure',
-            'message': message
-        }
+        return {'status': 'failure', 'message': message}
     else:
         if return_json:
             results = json.loads(response.text)

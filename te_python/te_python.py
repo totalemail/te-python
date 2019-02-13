@@ -14,9 +14,7 @@ import utility
 def email_submit(email_text, base_api_url=utility.base_api_url):
     """Submit an email to TotalEmail for spam analysis."""
     url = base_api_url.format('emails')
-    email_data = {
-        "full_text": email_text
-    }
+    email_data = {"full_text": email_text}
 
     return utility.make_request(requests.post, url, data=email_data)
 
@@ -41,9 +39,7 @@ def email_add_hash(api_token, email_id, hash_type, hash_value, base_api_url=util
     url = base_api_url.format('emails/{}'.format(email_id))
     headers = utility.create_header()
 
-    return utility.make_request(requests.put, url, data={
-        hash_type: hash_value
-    }, headers=headers)
+    return utility.make_request(requests.put, url, data={hash_type: hash_value}, headers=headers)
 
 
 def email_tlsh_hash(api_token, email_id, tlsh_hash, base_api_url=utility.base_api_url):
