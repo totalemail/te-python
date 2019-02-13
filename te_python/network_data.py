@@ -9,40 +9,49 @@ import requests
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), ".")))
 import utility
 
-BASE_API_URL = 'https://totalemail.io/api/v1/{}'
 
-
-def domain_add(domain, related_item_type, related_item_id):
-    url = BASE_API_URL.format('domains')
+def domain_add(domain, headers, bodies):
+    """(AUTHENTICATION REQUIRED) Create a domain in TotalEmail."""
+    url = utility.BASE_API_URL.format('domains')
     data = {
-        "domain_name": domain
+        'host_name': domain,
+        'headers': headers,
+        'bodies': bodies
     }
 
     return utility.make_request(requests.post, url, data=data)
 
 
-def email_address_add(email_address, related_item_type, related_item_id):
-    url = BASE_API_URL.format('email_addresses')
+def email_address_add(email_address, headers, bodies):
+    """(AUTHENTICATION REQUIRED) Create an email address in TotalEmail."""
+    url = utility.BASE_API_URL.format('emailAddresses')
     data = {
-        "email_address": email_address
+        'email_address': email_address,
+        'headers': headers,
+        'bodies': bodies
     }
 
     return utility.make_request(requests.post, url, data=data)
 
 
-def ipv4_add(ip_address, related_item_type, related_item_id):
-    url = BASE_API_URL.format('ip_addresses')
+def ipv4_add(ip_address, headers, bodies):
+    """(AUTHENTICATION REQUIRED) Create an ip address in TotalEmail."""
+    url = utility.BASE_API_URL.format('ipAddresses')
     data = {
-        "ipv4": ip_address
+        'ip_address': ip_address,
+        'headers': headers,
+        'bodies': bodies
     }
 
     return utility.make_request(requests.post, url, data=data)
 
 
-def url_add(network_data_url, related_item_type, related_item_id):
-    url = BASE_API_URL.format('urls')
+def url_add(network_data_url, headers, bodies):
+    """(AUTHENTICATION REQUIRED) Create a URL in TotalEmail."""
+    url = utility.BASE_API_URL.format('urls')
     data = {
-        "url": network_data_url
+        'url': network_data_url,
+        'bodies': bodies
     }
 
     return utility.make_request(requests.post, url, data=data)
