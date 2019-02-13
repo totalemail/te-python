@@ -5,6 +5,8 @@ import json
 
 import requests
 
+BASE_API_URL = 'https://totalemail.io/api/v1/{}'
+
 
 def create_header(api_token):
     return {'Authorization': 'Token {}'.format(api_token)}
