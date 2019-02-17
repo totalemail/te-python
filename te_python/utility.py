@@ -8,12 +8,21 @@ import requests
 base_api_url = 'https://totalemail.io/api/v1/{}'
 
 
-def create_header(api_token):
-    return {'Authorization': 'Token {}'.format(api_token)}
+def create_header(api_token=None):
+    headers = {
+        'Content-type': 'application/json'
+    }
+
+    if api_token:
+        headers['Authorization'] = 'Token {}'.format(api_token)
+
+    return headers
 
 
-def make_request(function, url, data=None, headers={}, return_json=True):
+def make_request(function, url, data=None, return_json=True, api_token=None):
     """Make a request to the given site."""
+    headers = create_header(api_token)
+
     if data:
         response = function(url, data=json.dumps(data), headers=headers)
     else:
@@ -25,8 +34,6 @@ def make_request(function, url, data=None, headers={}, return_json=True):
         return {'status': 'failure', 'message': message}
     else:
         if return_json:
-            results = json.loads(response.text)
-            results['status'] = 'success'
-            return results
+            return {'status': 'success'}
         else:
             return response.text

@@ -4,7 +4,7 @@
 
 import requests
 
-from .utility import base_api_url, make_request, create_header
+from .utility import base_api_url, make_request
 
 
 def email_submit(email_text, base_api_url=base_api_url):
@@ -25,19 +25,17 @@ def email_get_details(email_id, base_api_url=base_api_url):
 def email_add_analysis(api_token, email_id, analysis_data, base_api_url=base_api_url):
     """(AUTHENTICATION REQUIRED) Create a new analysis result."""
     url = base_api_url.format('emails/{}/analysis'.format(email_id))
-    headers = create_header(api_token)
 
-    return make_request(requests.get, url, data=analysis_data, headers=headers)
+    return make_request(requests.get, url, data=analysis_data, api_token=api_token)
 
 
 def email_add_hash(api_token, email_id, hash_type, hash_value, base_api_url=base_api_url):
     """(AUTHENTICATION REQUIRED) Add a hash to the email."""
     url = base_api_url.format('emails/{}'.format(email_id))
-    headers = create_header(api_token)
 
-    return make_request(requests.put, url, data={hash_type: hash_value}, headers=headers)
+    return make_request(requests.put, url, data={hash_type: hash_value}, api_token=api_token)
 
 
 def email_tlsh_hash(api_token, email_id, tlsh_hash, base_api_url=base_api_url):
     """(AUTHENTICATION REQUIRED) Add a TLSH hash to the email."""
-    return email_add_hash(api_token, email_id, 'tlsh_hash', tlsh_hash)
+    return email_add_hash(api_token, email_id, 'tlsh_hash', tlsh_hash, base_api_url=base_api_url)
