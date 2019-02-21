@@ -26,7 +26,7 @@ def email_add_analysis(api_token, email_id, analysis_data, base_api_url=base_api
     """(AUTHENTICATION REQUIRED) Create a new analysis result."""
     url = base_api_url.format('emails/{}/analysis'.format(email_id))
 
-    return make_request(requests.get, url, data=analysis_data, api_token=api_token)
+    return make_request(requests.post, url, data=analysis_data, api_token=api_token)
 
 
 def email_add_hash(api_token, email_id, hash_type, hash_value, base_api_url=base_api_url):
