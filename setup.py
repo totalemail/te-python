@@ -21,7 +21,7 @@ test_requirements = [
 
 setup(
     name='te_python',
-    version='0.1.0',
+    version='0.1.1',
     description="Python SDK for TotalEmail.",
     long_description=readme,
     author="Floyd Hightower",

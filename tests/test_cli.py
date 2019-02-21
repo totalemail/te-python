@@ -12,4 +12,4 @@ def test_te_python_cli():
     runner = CliRunner()
     result = runner.invoke(cli.main, ['--version'])
     assert result.exit_code == 0
-    assert result.output == 'te_python version: 0.1.0\n'
+    assert result.output == 'te_python version: 0.1.1\n'
