@@ -9,9 +9,7 @@ base_api_url = 'https://totalemail.io/api/v1/{}'
 
 
 def create_header(api_token=None):
-    headers = {
-        'Content-type': 'application/json'
-    }
+    headers = {'Content-type': 'application/json'}
 
     if api_token:
         headers['Authorization'] = 'Token {}'.format(api_token)
