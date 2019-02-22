@@ -22,11 +22,18 @@ def email_get_details(email_id, base_api_url=base_api_url):
     return make_request(requests.get, url)
 
 
-def email_add_analysis(api_token, email_id, analysis_data, base_api_url=base_api_url):
+def email_add_analysis(api_token, email_id, analysis_notes, analysis_source, base_api_url=base_api_url):
     """(AUTHENTICATION REQUIRED) Create a new analysis result."""
     url = base_api_url.format('emails/{}/analysis'.format(email_id))
 
-    return make_request(requests.post, url, data=analysis_data, api_token=api_token)
+    data = {
+        'notes': analysis_notes,
+        'source': analysis_source,
+        'email': email_id,
+        'score': 0  # for now, this value is unimportant
+    }
+
+    return make_request(requests.post, url, data=data, api_token=api_token)
 
 
 def email_add_hash(api_token, email_id, hash_type, hash_value, base_api_url=base_api_url):
