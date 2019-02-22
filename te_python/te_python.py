@@ -30,7 +30,7 @@ def email_add_analysis(api_token, email_id, analysis_notes, analysis_source, bas
         'notes': analysis_notes,
         'source': analysis_source,
         'email': email_id,
-        'score': 0  # for now, this value is unimportant
+        'score': 0,  # for now, this value is unimportant
     }
 
     return make_request(requests.post, url, data=data, api_token=api_token)
