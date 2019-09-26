@@ -2,47 +2,40 @@
 # -*- coding: utf-8 -*-
 """Python SDK for TotalEmail."""
 
-import requests
-
-from .utility import base_api_url, make_request
+from .utility import make_get_request, make_post_request, make_put_request
 
 
-def email_submit(email_text, base_api_url=base_api_url):
+def email_submit(email_text):
     """Submit an email to TotalEmail for spam analysis."""
-    url = base_api_url.format('emails')
+    url_path = '/emails'
     email_data = {"full_text": email_text}
 
-    return make_request(requests.post, url, data=email_data)
+    return make_post_request(url_path, email_data)
 
 
-def email_get_details(email_id, base_api_url=base_api_url):
+def email_get_details(email_id):
     """Get details about the email with the given email ID."""
-    url = base_api_url.format('emails/{}/'.format(email_id))
+    url_path = 'emails/{}/'.format(email_id)
 
-    return make_request(requests.get, url)
+    return make_get_request(url_path)
 
 
-def email_add_analysis(api_token, email_id, analysis_notes, analysis_source, score=0, base_api_url=base_api_url):
+def email_add_analysis(email_id, analysis_notes, analysis_source, score=0):
     """(AUTHENTICATION REQUIRED) Create a new analysis result."""
-    url = base_api_url.format('emails/{}/analysis/'.format(email_id))
+    url_path = 'emails/{}/analysis/'.format(email_id)
+    data = {'notes': analysis_notes, 'source': analysis_source, 'email': email_id, 'score': score}
 
-    data = {
-        'notes': analysis_notes,
-        'source': analysis_source,
-        'email': email_id,
-        'score': score,
-    }
-
-    return make_request(requests.post, url, data=data, api_token=api_token)
+    return make_post_request(url_path, data)
 
 
-def email_add_hash(api_token, email_id, hash_type, hash_value, base_api_url=base_api_url):
+def email_add_hash(email_id, hash_type, hash_value):
     """(AUTHENTICATION REQUIRED) Add a hash to the email."""
-    url = base_api_url.format('emails/{}/'.format(email_id))
+    url_path = 'emails/{}/'.format(email_id)
+    data = {hash_type: hash_value}
 
-    return make_request(requests.put, url, data={hash_type: hash_value}, api_token=api_token)
+    return make_put_request(url_path, data)
 
 
-def email_tlsh_hash(api_token, email_id, tlsh_hash, base_api_url=base_api_url):
+def email_tlsh_hash(email_id, tlsh_hash):
     """(AUTHENTICATION REQUIRED) Add a TLSH hash to the email."""
-    return email_add_hash(api_token, email_id, 'tlsh_hash', tlsh_hash, base_api_url=base_api_url)
+    return email_add_hash(email_id, 'tlsh_hash', tlsh_hash)
