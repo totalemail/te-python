@@ -47,6 +47,7 @@ clean-test: ## remove test and coverage artifacts
 	rm -f .coverage
 	rm -fr htmlcov/
 	rm -fr .cache
+	rm -fr .pytest_cache
 
 lint: ## check style with flake8
 	flake8 te_python tests
