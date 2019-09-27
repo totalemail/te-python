@@ -6,6 +6,7 @@ try:
 except:
     import configparser as ConfigParser
 import json
+import os
 
 try:
     import urllib.parse as urlparse
@@ -14,19 +15,20 @@ except ImportError:
 
 import requests
 
-CONFIG_FILE_PATH = '~/.totalemail/conf'
+CONFIG_FILE_PATH = os.path.expanduser('~') + '/.totalemail/conf'
 DEFAULT_BASE_API_URL = 'https://totalemail.io/api/v1/'
 
 
-def _read_config_file():
+def _read_config_file(config_file_path):
     """Read the config file with configuration details."""
     api_token = None
     api_base_url = DEFAULT_BASE_API_URL
 
     config = ConfigParser.RawConfigParser()
-    config.read(CONFIG_FILE_PATH)
+    with open(config_file_path) as f:
+        config.read_file(f)
 
-    default_config = config['DEFAULT']
+    default_config = config['default']
 
     if default_config.get('api_token'):
         api_token = default_config['api_token']
@@ -37,11 +39,11 @@ def _read_config_file():
     return api_token, api_base_url
 
 
-def init():
+def init(config_file_path=CONFIG_FILE_PATH):
     """Collect the data required to make a request to TE."""
     headers = {'Content-type': 'application/json'}
 
-    api_token, api_base_url = _read_config_file()
+    api_token, api_base_url = _read_config_file(config_file_path)
 
     if api_token:
         headers['Authorization'] = 'Token {}'.format(api_token)
@@ -61,23 +63,23 @@ def init():
 
 def make_get_request(url_path):
     """Make a GET request to the given URL."""
-    url = urlparse.urljoin(BASE_API_URL, url_path)
-    response = requests.get(url, headers=HEADERS)
+    url = urlparse.urljoin(base_api_url, url_path)
+    response = requests.get(url, headers=headers)
     return response
 
 
 def make_post_request(url_path, data):
     """Make a POST request to the given URL."""
-    url = urlparse.urljoin(BASE_API_URL, url_path)
-    response = requests.post(url, data=json.dumps(data), headers=HEADERS)
+    url = urlparse.urljoin(base_api_url, url_path)
+    response = requests.post(url, data=json.dumps(data), headers=headers)
     return response
 
 
 def make_put_request(url_path, data):
     """Make a PUT request to the given URL."""
-    url = urlparse.urljoin(BASE_API_URL, url_path)
-    response = requests.put(url, data=json.dumps(data), headers=HEADERS)
+    url = urlparse.urljoin(base_api_url, url_path)
+    response = requests.put(url, data=json.dumps(data), headers=headers)
     return response
 
 
-HEADERS, BASE_API_URL = init()
+headers, base_api_url = init()
